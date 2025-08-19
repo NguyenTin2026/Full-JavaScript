@@ -1,0 +1,1172 @@
+!  TYPESCRIPT TUTORIAL(Hướng Dẫn TypeScript)  !
+- TypeScript là JavaScript có cú pháp bổ sung cho các kiểu dữ liệu.
+- Ví dụ như print dữ liệu chẳng hạn:  console.log("Hello World!");
+
++) TypeScript là gì?
+- TypeScript là "siêu tập cú pháp" của JavaScript, bổ sung thêm kiểu tĩnh. Có nghĩa là nó có cùng cú pháp cơ sở với JavaScript nhưng bổ sung thêm một số tính năng.
+
++) Tại sao tôi nên sử dụng TypeScript?
+- JavaScript là một ngôn ngữ có kiểu dữ liệu lỏng lẻo. Có thể khó hiểu kiểu dữ liệu nào đang được truyền trong JavaScript.
+- Trong JavaScript, các tham số và biến hàm không có bất kỳ thông tin nào! Vì vậy, các nhà phát triển cần xem tài liệu hoặc đoán dựa trên việc triển khai.
+- TypeScript cho phép chỉ định kiểu dữ liệu được truyền trong mã và có khả năng báo cáo lỗi khi các loại dữ liệu không khớp.
+- Ví dụ, TypeScript sẽ báo lỗi khi truyền một chuỗi vào một hàm mong đợi một số. JavaScript thì không.
+
++) Làm thế nào để sử dụng TypeScript?
+- Một cách phổ biến để sử dụng TypeScript là sử dụng trình biên dịch TypeScript chính thức, trình biên dịch này sẽ biên dịch mã TypeScript thành JavaScript.
+- Một số trình soạn thảo mã phổ biến, chẳng hạn như Visual Studio Code, có hỗ trợ TypeScript tích hợp và có thể hiển thị lỗi khi bạn viết mã!
+
+^^^ TYPESCRIPT GET STARTED ^^^
++) Trình biên dịch TypeScript
+- TypeScript được chuyển thành JavaScript bằng trình biên dịch(compiler).
+- Khi TypeScript chuyển đổi thành JavaScript, nó có thể chạy ở bất kỳ nơi nào có JavaScript.
+
++) Cài đặt trình biên dịch
+- TypeScript có trình biên dịch chính thức có thể được cài đặt thông qua npm.
+
+- Trong dự án npm của bạn, hãy chạy lệnh sau để cài đặt trình biên dịch:
+      npm install typescript --save-dev
+
+- Trình biên dịch được cài đặt trong thư mục node_modules và có thể chạy bằng: npx tsc.
+      npx tsc
+
++) Cấu hình trình biên dịch
+- Theo mặc định, trình biên dịch TypeScript sẽ in ra thông báo trợ giúp khi chạy trong một dự án trống.
+- Trình biên dịch có thể được cấu hình bằng cách sử dụng một tệp  tsconfig.json
+- Bạn có thể tạo TypeScript    tsconfig.json   bằng các cài đặt được đề xuất như sau:
+   npx tsc --init
+
+- Điều này sẽ cung cấp cho bạn các kết quả như sau: 
+Created a new tsconfig.json with:
+TS
+  target: es2016
+  module: commonjs
+  strict: true
+  esModuleInterop: true
+  skipLibCheck: true
+  forceConsistentCasingInFileNames: true
+You can learn more at https://aka.ms/tsconfig.json
+
+- Sau đây là ví dụ về những thứ khác bạn có thể thêm vào tệp   tsconfig.json
+{ 
+   "include": ["src"],
+   "compilerOptions": {
+       "outDir": "./build"
+  }
+}
+
+LƯU Ý: Đây là một cách để nhanh chóng bắt đầu với TypeScript. Có nhiều tùy chọn khác như mẫu create-react-app , dự án node starter và plugin webpack.
+==> There are two main ways TypeScript assigns a type:  Explicit(rõ ràng) và Implicit(ko rõ ràng)
+
+^^^ CÁC LOẠI ĐƠN GIẢN CỦA TYPESCRIPT ^^^
+- TypeScript hỗ trợ một số kiểu đơn giản (kiểu nguyên thủy) mà bạn có thể biết.
++) Có 3 nguyên hàm chính trong JavaScript và TypeScript:
+     1.  boolean - giá trị đúng hoặc sai
+     2.  number - số nguyên và giá trị dấu phẩy động
+     3.  string - giá trị văn bản như "TypeScript Rocks"
++) Ngoài ra còn có 2 kiểu nguyên thủy ít phổ biến hơn được sử dụng trong các phiên bản sau của JavaScript và TypeScript:
+     1.  bigint - số nguyên và giá trị dấu phẩy động, nhưng cho phép số âm và số dương lớn hơn kiểu  number
+     2.  symbol - được sử dụng để tạo ra một mã định danh duy nhất trên toàn cầu.
+
++) Phân loại
+- Khi tạo một biến, có hai cách chính để TypeScript gán một kiểu:
+    1.  Rõ ràng (Explicit)
+    2.  Ngầm định (Implicit)
+
++) Loại rõ ràng(Explicit)
+VÍ DỤ:
+let firstName: string = "TinTin";
+console.log(typeof firstname);
+kết quả:  string
+
++) Kiểu ngầm định (Implicit)
+VÍ DỤ:
+let firstName = "TinTin";
+console.log(typeof firstName);
+kết trả:  string
+
+LƯU Ý:  Việc TypeScript "đoán" kiểu của một giá trị được gọi là infer(suy ra).
+- Gán ngầm định buộc TypeScript phải suy ra giá trị.
+- Gán kiểu ngầm định ngắn hơn, gõ nhanh hơn và thường được sử dụng khi phát triển và thử nghiệm.
+
++) Lỗi trong việc gán kiểu
+- TypeScript sẽ báo lỗi nếu kiểu dữ liệu không khớp.
+
+VÍ DỤ:
+let firstName: string = "TinTinDo";
+firstName = 100;
+console.log(firstName);
+kết quả:  ERROR             #báo lỗi vì kiểu dữ liệu không khớp)
+
+- Việc gán kiểu ngầm định     firstName    sẽ ít bị chú ý hơn dưới dạng string, nhưng cả hai đều sẽ báo lỗi:
+VÍ DỤ:
+let firstName = "Nguyen Tin Tin Do";
+firstName = 45;
+console.log(firstName);
+kết quả:  ERROR             #báo lỗi vì kiểu dữ liệu không khớp)
+
+(JavaScript sẽ không đựa ra lỗi khi các kiểu dữ liệu không khớp)
+
++) Không thể suy ra(Unable to infer)
+- TypeScript có thể không phải lúc nào cũng suy ra đúng kiểu của biến. Trong những trường hợp như vậy, nó sẽ đặt kiểu để   any   vô hiệu hóa kiểm tra kiểu.
+
+VÍ DỤ:
+const json = JSON.parse("55");
+console.log(typeof json);
+kết quả:   number
+===> Có thể vô hiệu hóa hành vi này bằng cách bật tùy chọn   noImplicitAny    trong dự án TypeScript    tsconfig.json    . Đó là tệp cấu hình JSON để tùy chỉnh cách một số TypeScript hoạt động.
+
+LƯU Ý:  Bạn có thể thấy các kiểu chữ nguyên thủy được viết hoa như   Boolean 
+     boolean !== Boolean
+Đối với hướng dẫn này, bạn chỉ cần sử dụng các giá trị viết thường, các giá trị viết hoa dành cho những trường hợp rất cụ thể.
+
++) Các loại đặc biệt của TypeScript
+1.  Loại:  bất kỳ(any)
+- any là kiểu vô hiệu hóa việc kiểm tra kiểu và cho phép sử dụng tất cả các kiểu.
+- Ví dụ dưới đây không sử dụng any và sẽ báo lỗi.
+
+VÍ DỤ (không có any)
+let u = true;
+u = "string";                               //Error: Type 'string' is not assignable to type 'boolean'
+u.runANonExistentMethod();   //Error: Property 'runANonExistentMethod' does not exist on type 'boolean'.
+console.log(Math.round(u));     //Error: Argument of type 'boolean' is not assignable to parameter of type 'number'.
+
+- Thiết lập    any    thành kiểu đặc biệt any sẽ vô hiệu hóa việc kiểm tra kiểu:
+ VÍ DỤ (với any)
+let v: any = true;
+v = "string"
+Math.round(v);
+kết quả:  NaN       #trong lập trình NaN chỉ một giá trị không phải số(not a number)
+
+==>    any   có thể là một cách hữu ích để vượt qua lỗi vì nó vô hiệu hóa kiểm tra kiểu, nhưng TypeScript sẽ không thể cung cấp tính năng an toàn kiểu và các công cụ dựa trên dữ liệu kiểu, chẳng hạn như hoàn thành tự động, sẽ không hoạt động. Hãy nhớ rằng, phải tránh nó bằng "bất cứ giá nào"...
+
++) Loại: không rõ(unknown)
+- unknown là một giải pháp thay thế tương ứng nhưng an toàn hơn     any     .
+- TypeScript sẽ ngăn chặn   unknown   việc sử dụng các kiểu dữ liệu, như được hiển thị trong ví dụ bên dưới:
+
+VÍ DỤ:
+let w: unknown = 1; 
+w = "string"; // no error
+
+w = { 
+  runANonExistentMethod: () => {
+    console.log("I think therefore I am");
+  } 
+} as { runANonExistentMethod: () => void }
+
+// How can we avoid the error for the code commented out below when we don't know the type? 
+// w.runANonExistentMethod(); // Error: Object is of type 'unknown'. 
+
+if(typeof w === 'object' && w !== null) {
+  (w as { runANonExistentMethod: Function }).runANonExistentMethod(); 
+} 
+// Although we have to cast multiple times we can do a check in the if to secure our type and have a safer casting
+==> So sánh ví dụ trên với ví dụ trước, với any
+LƯU Ý:  unknown tốt nhất là sử dụng khi bạn không biết loại dữ liệu đang được nhập. Để thêm một loại sau này, bạn sẽ cần phải ép kiểu.
+ (Ép kiểu là khi chúng ta sử dụng từ khóa "as" để chỉ ra thuộc tính hoặc biến có kiểu được ép kiểu hay không.)
+
++) Loại: không bao giờ(never)
+- never thực tế sẽ đưa ra lỗi bất cứ khi nào nó được định nghĩa.
+
+VÍ DỤ:
+let x: never = true;    // Error: Type 'boolean' is not assignable to type 'never'.
+kết quả:  ERROR
+(never ít khi được sử dụng, đặc biệt là khi dùng riêng lẻ, công dụng chính của nó là trong các loại thuốc gốc nâng cao.)
+
++) Kiểu: không xác định & null
+-    undefined   và    null    là các kiểu tham chiếu đến các nguyên hàm JavaScript  undefined và null tương ứng.
+
+VÍ DỤ:
+let y: undefined = undefined;
+console.log(typeof y);
+
+let z: null = null;
+console.log(typeof z);
+kết quả:   undefined
+                object
+
+LƯU Ý: Những kiểu này không có nhiều tác dụng trừ khi strictNullChecks được kích hoạt trong tệp   tsconfig.json
+
+^^^ MẢNG TYPESCRIPT ^^^
+- TypeScript có cú pháp cụ thể để nhập mảng.
+
+VÍ DỤ:
+const names: string[] = [];
+names.push("TinTin");
+name.push(10);              // Error: Argument of type 'number' is not assignable to parameter of type 'string'.
+console.log(names);
+kết quả:  ERROR           #Báo lỗi vì khác kiểu dữ liệu
+
++) Chỉ đọc (read only)
+- Từ khóa     Readonly    có thể ngăn chặn việc mảng bị thay đổi.
+
+VÍ DỤ:
+const names: readonly string[] = ["TINTIN"];
+name.push("USA");     // Error: Property 'push' does not exist on type 'readonly string[]'.
+console.log(names);
+kết quả:  ERROR      #Điểm yếu của hàm push là push không được phép tồn tại trong     readonly
+
++) Suy luận kiểu (type inference)
+- TypeScript có thể suy ra kiểu của một mảng nếu nó có giá trị.
+
+VÍ DỤ:
+const numbers = [1,2,3];             // / inferred to type number[]
+numbers.push(4);                        // no error
+number.push("2");                      // Error: Argument of type 'string' is not assignable to parameter of type 'number'.
+console.log(numbers);
+let head: numbers = number[0];
+console.log(numbers);                  // no error
+kết quả:  ERROR                         // Báo lỗi vì khác kiểu dữ liệu
+
+^^^ TYPESCRIPT TUPLES ^^^
+- Một tuple là một mảng có kiểu dữ liệu với độ dài và kiểu dữ liệu được xác định trước cho mỗi chỉ mục.
+- Tuple rất hữu ích vì chúng cho phép mỗi phần tử trong mảng có thể là một kiểu giá trị đã biết.
+
+VÍ DỤ:
+let ourTuple: [number, boolean, string];                  
+ourTuple = [5, false, "Coding God was here"];      //Đặt sai thứ tự trong chuỗi dòng đầu tiên có thể  khiến code bị lỗi
+console.log(ourTuple);  
+kết quả:  [ 5, false, 'Coding God was here' ]
+
++) Tuple chỉ đọc(read-only)
+- Một cách thực hành tốt nhất là tạo tuple      readonly       của bạn.
+
+VÍ DỤ:
+let ourtuple: [number, boolean, string];
+ourtuple = [10, true, "Tin Tin và Tin Tín"];
+ourtuple.push("Something new and wrong");             //Dòng này chính là tuple read-only
+console.log(ourtuple);
+kết quả:   [ 10, true, 'Tin Tin và Tin Tín', 'Something new and wrong' ]
+
+- Bạn thấy valueTuples mới chỉ có các kiểu được xác định rõ ràng cho các giá trị ban đầu
+VÍ DỤ:
+// define our tuple
+let ourTuple: [number, boolean, string];
+
+// initialize correctly
+ourTuple = [5, false, 'Coding God was here'];
+
+// We have no type safety in our tuple for indexes 3+
+ourTuple.push('Something new and wrong');
+
+// instead use our readonly tuple
+const ourReadonlyTuple: readonly [number, boolean, string] = [8, true, "Gia đình hạnh phúc"];
+
+// throws error as it is readonly.
+ourReadonlyTuple.push("Coding God took a day off");
+kết quả:  prog.ts(4,18): error TS2339: Property 'push' does not exist on type 'readonly [number, boolean, string]'.
+
++) Tuple được đặt tên (Named Tuples)
+- Các bộ dữ liệu được đặt tên cho phép chúng ta cung cấp ngữ cảnh cho các giá trị tại mỗi chỉ mục.
+
+VÍ DỤ:
+const graph: [x: number, y: number] = [55.2, 41.3];
+
+==> Các bộ dữ liệu được đặt tên cung cấp thêm ngữ cảnh cho những giá trị chỉ mục của chúng ta hiển thị.
+
++) Phân hủy cấu trúc Tuple
+- Vì tuple là mảng nên chúng ta cũng có thể phân tích cấu trúc của chúng.
+
+VÍ DỤ:
+const graph: [number, number] = [55.2, 41.3];
+const [x, y] = graph;
+
+^^^ TYPESCRIPT OBJECT TYPES(Các loại đối tượng TypeScript) ^^^
+- TypeScript có cú pháp cụ thể để nhập đối tượng.
+
+VÍ DỤ:
+const car: {type: string, model: string, year: number} = {
+                                                                                              type: "Toyota", 
+                                                                                              model: "Corolla",
+                                                                                               year: "2009"
+};
+console.log(car);
+kết quả:  { type: 'Toyota', model: 'Corolla', year: 2009 }
+
+==> Các kiểu đối tượng như thế này cũng có thể được viết riêng thậm chí có thể được sử dụng lại.
+
++) Suy luận kiểu (Type inference)
+- TypeScript có thể suy ra kiểu thuộc tính dựa trên giá trị của chúng.
+
+VÍ DỤ:
+const car = { 
+    type: "Lamborghini",
+    year: 2026,
+    producer: "TINTIN",
+    issues: 2027
+};
+car.type: "Ford Ranger";                  #cập nhât lại giá trị muốn thay đổi mới nhất
+console.log(car);
+kết quả:   { type: 'Ford Ranger', year: 2026, producer: 'TINTIN', issues: 2027 }
+
++) Thuộc tính tùy chọn (Optional properties)
+- Thuộc tính tùy chọn là những thuộc tính không cần phải được xác định trong định nghĩa đối tượng.
+
+VÍ DỤ: (không có thuộc tính tùy chọn) ===> Báo lỗi !!!
+const car: {type: string, mileage: number} = {
+                                                                              type:  "Honda",
+};
+car.mileage = 2000;
+kết quả:  
+
+VÍ DỤ: (có thuộc tính tùy chọn)  ==> Ko Báo lỗi.
+const car: {type: string, mileage = number} = {
+                                                                                type: "Toyota"
+}
+car.mileage = 2000;
+kết quả:   { type: 'Toyota', mileage: 2000 }
+
+
++) Chữ ký chỉ mục (Index Signatures)
+- Chữ ký chỉ mục có thể được sử dụng cho các đối tượng không có danh sách thuộc tính được xác định.
+
+VÍ DỤ:
+const nameAgeMap: { [index: string]: number } = {};
+nameAgeMap.Tin = 25; // no error
+
+nameAgeMap.Tưởng = "Fifty"; // Error: Type 'string' is not assignable to type 'number'.
+console.log(nameAgeMap);
+kết quả: ERROR                    #vì khác kiểu dữ liệu
+==> Chữ ký chỉ mục như thế này cũng có thể được thể hiện bằng các kiểu tiện ích như     Record<string, number>          .
+
+^^^ TYPESCRIPT ENUMS ^^^
+- Enum là một "lớp" đặc biệt đại diện cho một nhóm hằng số (biến không thể thay đổi).
+- Enum có hai loại      string      và      numeric     . Hãy bắt đầu với số.
+
++) Numeric Enums - Mặc định (Default)
+- Theo mặc định, enum sẽ khởi tạo giá trị đầu tiên   0  và thêm  1  vào mỗi giá trị bổ sung:
+
+VÍ DỤ:
+enum CardinalDirections {
+   North,
+   East,
+   South,
+   West
+}
+// North is the first value so it logs '0'
+let currentDirection = CardinalDirections.North;
+console.log(currentDirection);
+// throws error when commented in as 'North' is not a valid enum
+// currentDirection = 'North'; 
+// Error: "North" is not assignable to type 'CardinalDirections'.
+kết quả:  0
+
++) Numeric Enums - Đã khởi tạo (Initialized)
+- Bạn có thể thiết lập giá trị của enum số đầu tiên và tự động tăng từ đó:
+
+VÍ DỤ:
+enum = CardinalDirections {
+      North =1,           #Cho 1 con số bắt đầu từ đây những cái con lại tự động thêm 1 đơn vị
+      East,
+      South,
+      West
+};
+console.log(CardinalDirections.North);
+console.log(CardinalDirections.West);
+kết quả:  
+1
+4
+
++) Numeric Enums - Đã khởi tạo đầy đủ (Fully Initialized)
+- Bạn có thể gán các giá trị số duy nhất cho mỗi giá trị enum. Sau đó, các giá trị sẽ không tự động tăng:
+
+VÍ DỤ:
+enum StatusCodes {  
+    NotFound = 404,
+    Success = 200, 
+    Accepted = 202,
+    BadRequest = 400
+};
+console.log(StatusCodes.Success);
+console.log(StatusCodes.NotFound);
+kết quả:  200
+               404
+
++) String Enums (Chuỗi Enum)
+- Enum cũng có thể chứa   strings    . Điều này phổ biến hớn enum số vì tính dễ đọc và mục đích của chúng.
+
+VÍ DỤ:
+enum CardinalDirections {
+  North = 'North',
+  East = "East",
+  South = "South",
+  West = "West"
+};
+
+// logs "North"
+console.log(CardinalDirections.North);
+
+// logs "West"
+console.log(CardinalDirections.West);
+kết quả:  North
+                West
+
+!!! Về mặt kỹ thuật, bạn có thể kết hợp các giá trị enum dạng chuỗi và số, nhưng chúng tôi khuyên bạn không nên làm như vậy !!!
+
+^^^ TYPESCRIPT TYPE ALIASES AND INTERFACES (Bí danh và giao diện TypeScript) ^^^
+- TypeScript cho phép định nghĩa các kiểu dữ liệu riêng biệt với các biến sử dụng chúng.
+- Biệt danh và Giao diện cho phép dễ dàng chia sẻ các kiểu giữa các biến/đối tượng khác nhau.
+
++) Type Aliases (Loại bí danh)
+- Kiểu bí danh cho phép định nghĩa kiểu với tên tùy chỉnh (bí danh).
+- Kiểu bí danh có thể được sử dụng cho các kiểu nguyên thủy như    string    hoặc các kiểu phức tạp hơn như    objects     và        arrays:
+
+VÍ DỤ:
+// Try creating a new Car using the alias provided
+type CarYear = number;
+type CarType = string;
+type CarModel = string;
+type Car = {
+   year: CarYear,
+   type: CarType,
+   model: CarModel
+};
+const carYear: CarYear = 2001
+const carType: CarType = "Toyota"
+const carModel: CarModel = "Corolla"
+const car: Car = {
+    year: carYear,
+    type: carType,
+    model: carModel,
+};
+console.log(car);
+kết quả:  { year: 2001, type: 'Toyota', model: 'Corolla' }
+
++) Interfaces (Giao diện)
+- Giao diện tương tự như kiểu bí danh, ngoại trừ chúng chỉ áp dụng cho kiểu   objects     .
+
+VÍ DỤ:
+// Try creating a new interface using it below
+interface Rectangle {
+    height: number,
+    width: number
+};
+const rectangle: Rectangle = {
+    height: 30,
+    width:  5
+};
+console.log(rectangle);
+kết quả:  { height: 30, width: 5 }
+
++) Extending Interfaces (Mở rộng giao diện)
+- Các giao diện có thể mở rộng định nghĩa của nhau.
+- Mở rộng giao diện có nghĩa là bạn đang tạo một giao diện mới có cùng các thuộc tính như giao diện gốc, cộng thêm một số tính năng mới.
+
+VÍ DỤ:
+// Try creating a new interface and extending it like below
+interface Triangle {                                                //hàm interface để tạo ra giao diện
+   height: number,  
+   width: number,
+};
+interface ColoredTriangle extends Triangle {         // hàm    extends    để mở rộng giao diện
+    color: string
+}
+const coloredTriangle: ColoredTriangle = {
+       height: 30,
+       width: 10,
+       color: "yellow"
+};
+console.log(coloredTriangle);
+kết quả:  { height: 30, width: 10, color: 'yellow' }
+
+^^^ TYPESCRIPT UNION TYPES (Kiểu hợp nhất TypeScript) ^^^
+- Kiểu hợp nhất được sử dụng khi một giá trị có thể có nhiều hơn một kiểu duy nhất.
+- Chẳng hạn như khi một thuộc tính sẽ là     string      hoặc       number        .
+
++) Union |(OR)
+- Sử dụng    |   chúng ta đang nói tham số của chúng ta là a    string      hoặc      number     :
+
+VÍ DỤ:
+function printStatusCode(code: string | number){
+   console.log(`My status code is ${code}.`)
+}
+printStatusCode(404);
+printStatusCode("404");
+kết quả:   My status code is 404.
+               My status code is 404.
+
++) Union Type Errors (Lỗi loại Union)
+- Bạn cần biết kiểu của mình là gì trước khi sử dụng kiểu hợp nhất để tránh lỗi kiểu.
+
+VÍ DỤ:
+function printStatusCode(code: string | number) {
+    console.log(`My status code is ${code.toUpperCase()}.`)  //// error: Property 'toUpperCase' does not exist on type 'string | number'. Property 'toUpperCase' does not exist on type 'number'
+}
+kết quả:  ERROR     #Khác kiểu dữ liệu
+
+^^^ TYPESCRIPT FUNCTIONS (Các hàm TypeScript) ^^^
+- TypeScript có cú pháp cụ thể để nhập tham số hàm và giá trị trả về.
+
++) Kiểu trả về (Return type)
+- Kiểu trả về của một hàm có thể được xác định rõ ràng.
+
+VÍ DỤ:
+function getTime(): number {       // the `: number` here specifies that this function returns a number
+  return new Date().getTime();
+}
+console.log(getTime());
+kết quả:  #ra nhiều con số khác nhau sau khi run nhiều lần
+
+(Nếu không có kiểu trả về nào được xác định, TypeScript sẽ cố gắng suy ra kiểu đó thông qua kiểu của các biến hoặc biểu thức được trả về).
+
++) Kiểu trả về rỗng (Void Return Type)
+- Kiểu    void    có thể được sử dụng để chỉ ra một hàm không trả về bất kì giá trị nào.
+
+VÍ DỤ:
+function printHello(): void {
+   console.log("Hello");
+}
+printHello();
+kết quả:   Hello
+
++) Các tham số
+- Các tham số hàm được gõ theo cú pháp tương tự như khai báo biến.
+
+VÍ DỤ:
+function multiply(a: number, b: number) {
+    return a * b;
+}
+console.log(multiply(2, 5));
+kết quả:  10
+
+LƯU Ý: Nếu không có kiểu tham số nào được xác định, TypeScript sẽ mặc định sử dụng any, trừ khi có thông tin kiểu bổ sung như được hiển thị trong phần Tham số mặc định và Bí danh kiểu bên dưới.
+
++) Tham số tùy chọn (Optional Parameters)
+- Theo mặc định, TypeScript sẽ cho rằng tất cả các tham số đều là bắt buộc, nhưng bạn có thể đánh dấu rõ ràng là tùy chọn.
+
+VÍ DỤ:
+function add(a: number, b: number, c?: number) {        #Dấu   ?   sẽ đánh dấu tham số c như là một tùy chọn
+  return a + b + (c || 0);
+}
+console.log(add(2,5));
+kết quả:  7
+
++) Tham số mặc định (Default Parameters)
+- Đối với các tham số có giá trị mặc định, giá trị mặc định sẽ nằm sau chú thích kiểu:
+
+VÍ DỤ:
+function pow(value: number, exponent: number = 2) {
+  return value ** exponent;
+}
+console.log(pow(10));
+kết quả:  100
+(TypeScript cũng có thể suy ra kiểu từ giá trị mặc định)
+
++) Tham số được đặt tên (Named Parameters)
+- Việc nhập các tham số được đặt tên tuân theo cùng một quy tắc như khi nhập các tham số thông thường.
+
+VÍ DỤ:
+function divide({dividend, divisor}: {dividend: number, divisor: number}) {
+   return dividend / divisor;
+}
+console.log(divide({dividend: 10, divisor: 5}));
+kết quả:  2
+
++) Tham số nghỉ ngơi (Rest Parameters)
+- Các tham số còn lại có thể được nhập như các tham số bình thường, nhưng kiểu phải là một mảng vì các tham số còn lại luôn là mảng.
+
+VÍ DỤ:
+function add(a: number, b: number, ...rest: number[]) {
+  return a + b + rest.reduce((p, c) => p + c, 0);
+}
+console.log(add(10,10,10,10,10,10));        #có thể thêm bao nhiêu số cũng được
+kết quả:  60  
+
++) Bí danh loại (Type Alias)
+- Kiểu hàm có thể được chỉ định riêng biệt với các hàm có bí danh kiểu.
+- Các kiểu này được viết tương tự như hàm mũi tên, đọc thêm về hàm mũi tên.
+
+VÍ DỤ:
+type Negate = (value: number) => number;     #// in this function, the parameter `value` automatically gets assigned the type `number` from the type `Negate`
+const negativefunction: Negate = (value) => value * -1;
+console.log(negativefunction(99));
+kết quả:  -99
+
+^^^ TYPESCRIPT CASTING (Ép kiểu TypeScript) ^^^
+- Ép kiểu là quá trình ghi đè một kiểu dữ liệu.
+
++) Ép kiểu với as (Casting with as)
+- Một cách đơn giản để ép kiểu biến là sử dụng từ khóa   as     , từ khóa này sẽ trực tiếp thay đổi kiểu của biến đã cho.
+
+VÍ DỤ:
+let x: unknown = "Đỗ Nguyễn Tin Tin";
+console.log((x as string).length);
+kết quả:   17
+
+- Việc ép kiểu thực sự không thay đổi kiểu dữ liệu trong biến, ví dụ đoạn mã sau sẽ không hoạt động như mong đợi vì biến xvẫn giữ một số.
+VÍ DỤ:
+let x: unknown = 4;
+console.log((x as string).length); // prints undefined since numbers don't have a length
+kết quả:  ERROR
+
+- TypeScript vẫn sẽ cố gắng kiểm tra kiểu để ngăn chặn các kiểu có vẻ không chính xác, ví dụ lệnh sau sẽ báo lỗi kiểu vì TypeScript biết rằng việc ép kiểu chuỗi thành số không hợp lý nếu không chuyển đổi dữ liệu:
+VÍ DỤ:
+console.log((4 as string).length); // Error: Conversion of type 'number' to type 'string' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+kết quả:  ERROR
+
++) Ép kiểu với  < >
+- Sử dụng < > hoạt động tương tự như lệnh ép kiểu với    as     .
+
+VÍ DỤ:
+let x: unknown = "Đỗ Nguyễn Tin Tin";
+console.log((<string>x).length);
+kết quả:   17
+
+LƯU Ý: Kiểu ép kiểu này sẽ không hoạt động tới TSX, chẳng hạn như khi làm việc trên các tệp React.
+
++) Ép kiểu lực (Force Casting)
+- Để ghi đè các lỗi kiểu mà TypeScript có thể gây ra khi ép kiểu, trước tiên hãy ép kiểu thành  unknown, sau đó là kiểu mục tiêu.
+
+VÍ DỤ:
+let x = "Đỗ Nguyễn Tin Tin";
+console.log(((x as unknown) as number).length);     //ép kiểu thành unknown, number là kiểu mục tiêu
+kết quả:   ERROR      // x is not actually a number so this will return undefined
+
+^^^ TYPESCRIPT CLASSES (Các lớp TypeScript) ^^^
+- TypeScript thêm các kiểu và trình sửa đổi khả năng hiển thị vào các lớp JavaScript.
+
++) Thành viên: các loại (Types)
+- Các thành viên của một lớp (thuộc tính và phương thức) được định kiểu bằng cách sử dụng chú thích kiểu, tương tự như biến.
+
+VÍ DỤ:
+class Person {
+   name: string;
+}
+const person = new Person();
+person.name = "TinTin";
+console.log(person);
+kết quả:  Person { name: 'TinTin' }
+
++) Thành viên: khả năng hiển thị (Visibility)
+- Các thành viên trong lớp cũng sẽ được cung cấp các công cụ sửa đổi đặc biệt ảnh hưởng đến khả năng hiển thị.
+
+Có ba trình điều chỉnh khả năng hiển thị chính trong TypeScript.
+     public: - (mặc định) cho phép truy cập vào thành viên lớp từ bất kỳ đâu.
+     private - chỉ cho phép truy cập vào thành viên lớp từ bên trong lớp.
+     protected - cho phép truy cập vào thành viên lớp từ chính nó và bất kỳ lớp nào kế thừa nó, được đề cập trong phần kế thừa bên dưới.
+
+VÍ DỤ:
+class Person {
+  private name: string;
+  public constructor(name: string) {
+    this.name = name;
+  }
+   public getName(): string {
+       return this.name;
+  }
+}
+const person = new Person("Tin");
+console.log(person.getName());       // person.name isn't accessible from outside the class since it's private
+kết quả:  Tin
+
+( Từ khóa   this   trong một lớp thường đề cập đến thể hiện của lớp đó. )
+
++) Thuộc tính tham số
+- TypeScript cung cấp một cách thuận tiện để định nghĩa các thành viên lớp trong hàm tạo, bằng cách thêm trình sửa đổi khả năng hiển thị vào tham số.
+
+VÍ DỤ:
+class Person {
+  // name is a private member variable
+   public constructor(private name: string) {}
+   public getName(): string {
+     return this.name;
+ }
+}
+const person = new Person("Đỗ Nguyễn Tin Tin");
+console.log(person.getName());
+kết quả:  Đỗ Nguyễn Tin Tin
+
++) Chỉ đọc (Read-only)
+- Tương tự như mảng, từ khóa readonly có thể ngăn chặn các thành viên lớp bị thay đổi.
+
+VÍ DỤ:
+class Person {
+   private readonly name: string;
+   public constructor(name: string) {
+  this.name = name;
+ }
+public getName(): string {
+    return this.name;
+  }
+}
+const person = new Person("Tin Do");
+console.log(person.getName());
+kết quả:  Tin Do
+
++) Kế thừa: thực hiện (Implements)
+- Giao diện (được đề cập ở đây ) có thể được sử dụng để xác định kiểu mà một lớp phải tuân theo thông qua từ khóa     implements    .
+
+VÍ DỤ:
+interface Shape {
+   getArea: () => number;
+}
+class Rectangle implements Shape {
+   public constructor(protected readonly width: number, protected readonly height: number) {}
+   public getArea(): number {
+       return this.width * this.height;
+ }
+}
+const myRect = new Rectangle(10, 10);
+console.log(myRect.getArea());
+kết quả:   100
+
+=> Một lớp có thể triển khai nhiều giao diện bằng cách liệt kê từng giao diện sau dấu phẩy  implements , phân tách bằng dấu phẩy như sau: class Rectangle implements Shape, Colored {
+
++) Kế thừa: mở rộng (Extends)
+- Các lớp có thể mở rộng lẫn nhau thông qua từ khóa   extends    . Một lớp chỉ có thể mở rộng một lớp khác.
+
+VÍ DỤ:
+interface Shape {
+  getArea: () => number;
+}
+class Rectangle implements Shape {
+   public constructor(protected readonly width: number, protected readonly height: number) {}
+   public getArea(): number {
+     return this.width * this.height;
+ }
+} 
+class Square extends Rectangle {
+  public constructor(width: number) {
+     super(width, width);
+  }
+// getArea gets inherited from Rectangle
+}
+const mySq = new Square(20);
+console.log(mySq.getArea());
+kết quả:   400
+
++) Ghi đè (Override)
+- Khi một lớp mở rộng một lớp khác, nó có thể thay thế các thành viên của lớp cha có cùng tên.
+- Các phiên bản TypeScript mới hơn cho phép đánh dấu rõ ràng điều này bằng từ khóa  override   .
+
+VÍ DỤ:
+interface Shape {
+   getArea: () => number;
+}
+class Rectangle implements Shape {
+  // using protected for these members allows access from classes that extend from this class, such as Square
+  
+  public constructor(protected readonly width: number, protected readonly height: number) {}
+    public getArea(): number {
+      return this.width * this.height;
+}
+     public toString(): string {
+        return `Rectangle[width=${this.width}, height=${this.height}]`;
+ }
+}
+class Square extends Rectangle {
+   public constructor(width: number) {
+      super(width, width);
+}
+   // this toString replaces the toString from Rectangle
+    public override toString(): string {
+       return `Square[width=${this.width}]`;
+ }
+}
+const mySq = new Square(20);
+console.log(mySq.toString());
+kết quả:   Square[width=20]
+
+(Theo mặc định, từ khóa  override  này là tùy chọn khi ghi đè một phương thức và chỉ giúp ngăn ngừa việc vô tình ghi đè một phương thức không tồn tại. Hãy sử dụng cài đặt này noImplicitOverrideđể bắt buộc sử dụng từ khóa khi ghi đè.)
+
++) Các lớp trừu tượng (Abstract Classes)
+- Các lớp có thể được viết theo cách cho phép chúng được sử dụng làm lớp cơ sở cho các lớp khác mà không cần phải triển khai tất cả các thành viên. Điều này được thực hiện bằng cách sử dụng từ khóa abstract . Các thành viên chưa được triển khai cũng sử dụng từ khóa abstract.
+
+VÍ DỤ:
+abstract class Polygon {
+  public abstract getArea(): number;
+
+  public toString(): string {
+    return `Polygon[area=${this.getArea()}]`;
+  }
+}
+
+class Rectangle extends Polygon {
+  public constructor(protected readonly width: number, protected readonly height: number) {
+    super();
+  }
+
+  public getArea(): number {
+    return this.width * this.height;
+  }
+}
+
+const myRect = new Rectangle(10,20);
+
+console.log(myRect.getArea());
+kết quả:   200
+==> Các lớp trừu tượng không thể khởi tạo trực tiếp vì chúng chưa triển khai tất cả các thành viên.
+
+^^^ TYPESCRIPT BASIC GENERICS (Generic cơ bản TypeScript) ^^^
+- Generics cho phép tạo 'biến kiểu' có thể được sử dụng để tạo các lớp, hàm và bí danh kiểu không cần phải định nghĩa rõ ràng các kiểu mà chúng sử dụng.
+- Generics giúp viết mã có thể tái sử dụng dễ dàng hơn.
+
++) Chức năng
+- Phương thức chung với hàm giúp tạo ra các phương thức tổng quát hơn, biểu diễn chính xác hơn các kiểu được sử dụng và trả về.
+
+VÍ DỤ:
+function createPair<S, T>(v1: S, v2: T): [S, T] {
+  return [v1, v2];
+}
+
+console.log(createPair<string, number>('hello', 42)); // ['hello', 42]
+kết quả:  ['hello', 42]
+==> TypeScript cũng có thể suy ra kiểu của tham số chung từ các tham số hàm.
+
++) Các lớp học
+- Có thể sử dụng Generic để tạo các lớp tổng quát, như Map .
+
+VÍ DỤ:
+class NamedValue<T> {
+  private _value: T | undefined;
+
+  constructor(private name: string) {}
+
+  public setValue(value: T) {
+    this._value = value;
+  }
+
+  public getValue(): T | undefined {
+    return this._value;
+  }
+
+  public toString(): string {
+    return `${this.name}: ${this._value}`;
+  }
+}
+      
+const value = new NamedValue<number>('myNumber');
+value.setValue(10);
+console.log(value.toString()); // myNumber: 10
+kết quả:   myNumber: 10
+==> TypeScript cũng có thể suy ra kiểu của tham số chung nếu nó được sử dụng trong tham số xây dựng.
+
++) Loại biệt danh
+- Kiểu chung trong các bí danh kiểu cho phép tạo ra các kiểu có thể tái sử dụng nhiều hơn.
+
+VÍ DỤ:
+type Wrapped<T> = { value: T };
+const wrappedValue: Wrapped<number> = { value: 10 };
+
+==> Điều này cũng hoạt động với các giao diện có cú pháp sau:interface Wrapped<T> {
+
++) Giá trị mặc định
+- Generic có thể được gán các giá trị mặc định áp dụng nếu không có giá trị nào khác được chỉ định hoặc suy ra.
+
+VÍ DỤ:
+class NamedValue<T = string> {
+  private _value: T | undefined;
+
+  constructor(private name: string) {}
+
+  public setValue(value: T) {
+    this._value = value;
+  }
+
+  public getValue(): T | undefined {
+    return this._value;
+  }
+
+  public toString(): string {
+    return `${this.name}: ${this._value}`;
+  }
+}
+
+let value = new NamedValue('myNumber');
+value.setValue('myValue');
+console.log(value.toString()); // myNumber: myValue
+
++) Mở rộng
+- Có thể thêm ràng buộc vào kiểu generic để giới hạn những gì được phép. Các ràng buộc này cho phép dựa vào một kiểu cụ thể hơn khi sử dụng kiểu generic.
+
+VÍ DỤ:
+function createLoggedPair<S extends string | number, T extends string | number>(v1: S, v2: T): [S, T] {
+  console.log(`creating pair: v1='${v1}', v2='${v2}'`);
+  return [v1, v2];
+}
+
+==> Có thể kết hợp với giá trị mặc định.
+
+^^^ TYPESCRIPT UTILITY TYPES ^^^
+- TypeScript có nhiều kiểu dữ liệu có thể hỗ trợ một số thao tác dữ liệu phổ biến, thường được gọi là kiểu tiện ích.
+  Chương này đề cập đến các loại tiện ích phổ biến nhất.
+
++) Một phần (Partial)
+-    Partial    thay đổi tất cả các thuộc tính trong một đối tượng thành tùy chọn.
+
+VÍ DỤ:
+interface Point {
+  x: number;
+  y: number;
+}
+            
+let pointPart: Partial<Point> = {}; // `Partial` allows x and y to be optional
+pointPart.x = 10;
+console.log(pointPart);
+kết quả:  { x: 10 }
+
++) Yêu cầu (Required)
+-     Required  thay đổi tất cả các thuộc tính trong một đối tượng thành bắt buộc.
+
+VÍ DỤ:
+interface Car {
+  make: string;
+  model: string;
+  mileage?: number;
+}
+            
+let myCar: Required<Car> = {
+  make: 'Ford',
+  model: 'Focus',
+  mileage: 12000 // `Required` forces mileage to be defined
+};
+console.log(myCar);
+kết quả:  { make: 'Ford', model: 'Focus', mileage: 12000 }
+
++) Ghi (Record)
+-     Record    là lối tắt để xác định loại đối tượng với loại khóa và loại giá trị cụ thể.
+
+VÍ DỤ:
+const nameAgeMap: Record<string, number> = {
+  'Alice': 21,
+  'Bob': 25
+};
+console.log(nameAgeMap);
+kết quả:  { Alice: 21, Bob: 25 }
+
+( Record<string, number>tương đương với{ [key: string]: number } )
+
++) Bỏ qua (omit)
+-    Omit    xóa khóa khỏi một loại đối tượng.
+
+VÍ DỤ:
+interface Person {
+  name: string;
+  age: number;
+  location?: string;
+}
+    
+const bob: Omit<Person, 'age' | 'location'> = {
+  name: 'Bob'
+  // `Omit` has removed age and location from the type and they can't be defined here
+};
+console.log(bob);
+kết quả:  { name: 'Bob' }
+
++) Nhặt (Pick)
+-    Pick    xóa tất cả các khóa ngoại trừ các khóa được chỉ định khỏi một loại đối tượng.
+
+VÍ DỤ:
+interface Person {
+  name: string;
+  age: number;
+  location?: string;
+}
+            
+const bob: Pick<Person, 'name'> = {
+  name: 'Bob'
+  // `Pick` has only kept name, so age and location were removed from the type and they can't be defined here
+};
+console.log(bob);
+kết quả:  { name: 'Bob' }
+
++) Loại trừ (Exclude)
+-     Exclude    xóa các kiểu khỏi một liên kết.
+
+VÍ DỤ:
+type Primitive = string | number | boolean;
+
+const value: Exclude<Primitive, string> = true;
+// a string cannot be used here since Exclude removed it from the type.
+console.log(typeof value);
+kết quả:  boolean 
+
++) Kiểu trả về (Return type)
+-      ReturnType     trích xuất kiểu trả về của một kiểu hàm.
+
+VÍ DỤ:
+type PointGenerator = () => { x: number; y: number; };
+const point: ReturnType<PointGenerator> = {
+  x: 10,
+  y: 20
+};
+kết quả:  ...
+
++) Các thông số (Parameters)
+-     Parameters      trích xuất các kiểu tham số của một kiểu hàm dưới dạng một mảng.
+
++) Chỉ đọc (Read only)
+- Readonly được sử dụng để tạo một kiểu mới trong đó tất cả các thuộc tính đều chỉ đọc, nghĩa là chúng không thể được sửa đổi sau khi được gán giá trị.
+(Hãy nhớ rằng TypeScript sẽ ngăn chặn điều này tại thời điểm biên dịch, nhưng về mặt lý thuyết, vì nó được biên dịch thành JavaScript nên bạn vẫn có thể ghi đè thuộc tính chỉ đọc.)
+
+VÍ DỤ:
+interface Person {
+    name: string;
+    age: number;
+}
+
+const person: Readonly<Person> = {
+    name: "Dylan",
+    age: 35,
+};
+person.name = 'Israel'; // prog.ts(11,8): error TS2540: Cannot assign to 'name' because it is a read-only property.
+kết quả:  ERROR     #vì khác name
+
+^^^ TYPESCRIPT KEYOF ^^^
+-     keyof    là một từ khóa trong TypeScript được sử dụng để trích xuất kiểu khóa từ một kiểu đối tượng.
+
++) keyof với các phím rõ ràng
+- Khi sử dụng trên một kiểu đối tượng có khóa rõ ràng,      keyof     sẽ tạo ra một kiểu hợp nhất với các khóa đó.
+
+VÍ DỤ:
+interface Person {
+  name: string;
+  age: number;
+}
+
+// `keyof Person` here creates a union type of "name" and "age", other strings will not be allowed
+function printPersonProperty(person: Person, property: keyof Person) {
+  console.log(`Printing person property ${property}: "${person[property]}"`);
+}
+
+let person = {
+  name: "Max",
+  age: 27
+};
+printPersonProperty(person, "name"); // Printing person property name: "Max"s
+kết quả:  Printing person property name: "Max"
+
++) keyof với chữ ký chỉ mục
+-       keyof      cũng có thể được sử dụng với chữ ký chỉ mục để trích xuất loại chỉ mục.
+
+^^^ TYPESCRIPT NULL & UNDEFINED ^^^
+- TypeScript có hệ thống mạnh mẽ để xử lý các giá trị   null    hoặc    undefined    .
+Theo mặc định null, undefined việc xử lý bị vô hiệu hóa và có thể được bật bằng cách đặt       strictNullChecks     thành đúng.
+Phần còn lại của trang này áp dụng khi       strictNullChecks       được bật.
+
++) Các loại (Types)
+-     null      và     undefined    là các kiểu nguyên thủy và có thể được sử dụng giống như các kiểu khác, chẳng hạn như string.
+
+VÍ DỤ:
+let value: string | undefined | null = null;
+console.log(typeof value);
+
+value = 'hello';
+console.log(typeof value);
+
+value = undefined;
+console.log(typeof value);
+kết quả:  object
+               string
+              undefined
+(Khi strictNullChecksđược bật, TypeScript yêu cầu phải thiết lập các giá trị trừ khi undefinedđược thêm rõ ràng vào kiểu.)
+
++) Chuỗi tùy chọn (Optional chaining)
+- Optional Chaining là một tính năng JavaScript hoạt động tốt với việc xử lý null của TypeScript. Nó cho phép truy cập các thuộc tính trên một đối tượng, có thể tồn tại hoặc không tồn tại, với cú pháp gọn nhẹ. Nó có thể được sử dụng với ?.toán tử khi truy cập các thuộc tính.
+
+VÍ DỤ:
+interface House {
+  sqft: number;
+  yard?: {
+    sqft: number;
+  };
+}
+            
+function printYardSize(house: House) {
+  const yardSize = house.yard?.sqft;
+
+  if (yardSize === undefined) {
+    console.log('No yard');
+  } else {
+    console.log(`Yard is ${yardSize} sqft`);
+  }
+}
+            
+let home: House = {
+  sqft: 500
+};        
+printYardSize(home); // Prints 'No yard'
+kết quả:   No yard
+
++) Sự hợp nhất không (Nullish Coalescence)
+- Nullish Coalescence là một tính năng JavaScript khác cũng hoạt động tốt với việc xử lý null của TypeScript. Nó cho phép viết các biểu thức có phương án dự phòng cụ thể khi xử lý với nullhoặc undefined. Tính năng này hữu ích khi các giá trị falsy khác có thể xuất hiện trong biểu thức nhưng vẫn hợp lệ. Nó có thể được sử dụng với ??toán tử trong một biểu thức, tương tự như khi sử dụng &&toán tử .
+
+VÍ DỤ:
+function printMileage(mileage: number | null | undefined) {
+  console.log(`Mileage: ${mileage ?? 'Not Available'}`);
+}
+           
+printMileage(null); // Prints 'Mileage: Not Available'
+printMileage(0); // Prints 'Mileage: 0'
+kết quả:   Mileage: Not Available
+                Mileage: 0
+
++) Khẳng định Null (Null Assertion)
+- Hệ thống suy luận của TypeScript không hoàn hảo, đôi khi việc bỏ qua khả năng một giá trị có thể là nullhoặc undefined. là hợp lý. Một cách dễ dàng để làm điều này là sử dụng ép kiểu, nhưng TypeScript cũng cung cấp !toán tử như một phím tắt tiện lợi.
+
+VÍ DỤ:
+function getValue(): string | undefined {
+  return 'hello';
+}
+            
+let value = getValue();
+console.log('value length: ' + value!.length);
+kết quả:   value length: 5
+
+(Giống như phương pháp đúc, phương pháp này có thể không an toàn và cần phải cẩn thận khi sử dụng.)
+
++) Xử lý giới hạn mảng (Array bounds handling)
+- Ngay cả khi       strictNullChecks      được bật, theo mặc định TypeScript sẽ cho rằng quyền truy cập mảng sẽ không bao giờ trả về undefined (trừ khi undefined là một phần của kiểu mảng).
+Có thể sử dụng cấu hình          noUncheckedIndexedAccess        để thay đổi hành vi này.
+
+VÍ DỤ:
+let array: number[] = [1, 2, 3];
+let value = array[0]; // with `noUncheckedIndexedAccess` this has the type `number | undefined`
+kết quả: ...
+
+^^^ TYPESCRIPT DEFINITELY TYPED ^^^
+- Các gói NPM trong hệ sinh thái JavaScript rộng lớn không phải lúc nào cũng có sẵn các kiểu dữ liệu.
+  Đôi khi các dự án không còn được duy trì nữa, hoặc đôi khi họ không quan tâm, không đồng ý hoặc không có thời gian để sử dụng TypeScript.
+
++) Sử dụng các gói NPM không được gõ trong TypeScript
+- Sử dụng các gói NPM không có kiểu với TypeScript sẽ không an toàn về kiểu do thiếu kiểu.
+Để giúp các nhà phát triển TypeScript sử dụng các gói như vậy, có một dự án do cộng đồng duy trì có tên là Definitely Typed .
+Definitely Typed là một dự án cung cấp kho lưu trữ trung tâm các định nghĩa TypeScript cho các gói NPM không có kiểu dữ liệu.
+
+VÍ DỤ:
+npm install --save-dev @types/jquery
+
+(Thông thường không cần thực hiện thêm bước nào khác để sử dụng các kiểu sau khi cài đặt gói khai báo, TypeScript sẽ tự động chọn các kiểu khi sử dụng chính gói đó.)
+
+==> Các trình soạn thảo như Visual Studio Code thường gợi ý cài đặt các gói như thế này khi thiếu kiểu dữ liệu.
+
+^^^ TYPESCRIPT 5.x UPDATES ^^^
+- TypeScript được Microsoft tích cực bảo trì và cập nhật. Trong phiên bản 5.xa, rất nhiều tiện ích và bản cập nhật nâng cao chất lượng đã được thực hiện.
+- Chương này đề cập đến những bản cập nhật phổ biến nhất để cho phép đảm bảo an toàn kiểu dữ liệu nghiêm ngặt và linh hoạt hơn.
+
+LƯU Ý: Xin nhắc lại, những tính năng này chỉ có trong phiên bản 5.x trở lên.
+
++) Kiểu chữ mẫu (Template Literal Types)
+- Template Literal Types giờ đây cho phép chúng ta tạo ra các kiểu dữ liệu chính xác hơn bằng cách sử dụng các ký tự mẫu. Chúng ta có thể định nghĩa các kiểu dữ liệu tùy chỉnh dựa trên giá trị thực tế của chuỗi tại thời điểm biên dịch.
+
+VÍ DỤ:
+type Color = "red" | "green" | "blue"; 
+type HexColor<T extends Color> = `#${string}`;
+
+// Usage
+let myColor: HexColor<"blue"> = "#0000FF";
+console.log(myColor)
+kết quả:  #0000FF
+
++) Nhãn chữ ký chỉ mục
+-    Index Signature Labels   cho phép chúng ta gắn nhãn chữ ký chỉ mục bằng tên thuộc tính được tính toán. Nó giúp cung cấp thông tin kiểu mô tả hơn khi làm việc với các đối tượng động.
+
++) VÍ DỤ:
+type DynamicObject = { [key: string as `dynamic_${string}`]: string };
+
+// Usage: 
+let obj: DynamicObject = { dynamic_key: "value" };
+console.log(obj);
+kết quả:  { dynamic_key: "value" }
+
+(Phiên bản 5.x hiện cũng hỗ trợ các trường private JavaScript gốc. Trường private của TypeScript vẫn hoạt động như đã thảo luận trong phần Lớp .)
+
